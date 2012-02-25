@@ -1,0 +1,204 @@
+\documentclass{article}
+\usepackage{amsmath}
+\title{Some notes on single-molecule FRET}
+\author{Ben Gamari}
+
+\newcommand{\emm}[1]{\ensuremath{_{#1_\mathrm{em}}}}
+\newcommand{\exc}[1]{\ensuremath{^{#1_\mathrm{exc}}}}
+% \i{em}{exc}
+\newcommand{\I}[2]{\ensuremath{I\emm{#1}\exc{#2}}}
+    
+\begin{document}
+\maketitle
+
+FRET is a quantum mechanical process due to the electromagnetic
+coupling between dipoles. Under this interaction, an excited
+molecule (the donor) can transfer energy to a nearby molecule (the
+acceptor) with given an appreciable mutual spectral overlap.
+
+We define the FRET efficiency $E$ to be the quantum yield of this
+energy transfer process. As such, we can write it as a function of the
+system's transition rates,
+\begin{equation}
+  E = \frac{k_{ET}}{k_{ET} + \sum_i k_{R_i} + \sum_i k_{NR_i}}
+  \label{Eq:fretRates}
+\end{equation}
+where,
+
+\begin{tabular}{lcl}
+  $k_{ET}$  & = & rate of donor to acceptor energy transfer \\
+  $k_{D-R}$   & = & rate of donor fluorescence radiative decay \\
+  $k_{D-NR}$  & = & rate of donor non-radiative decay \\
+\end{tabular}
+
+We define $k_{DA}$ to be the effective rate of donor relaxation in the presence
+of the acceptor,
+\[ k_{DA}^{-1} = k_{ET}^{-1} + \sum_i k_{D-R_i}^{-1} + \sum_i k_{D-NR_i}^{-1} \]
+Eliminating $k_{ET}$ from \eqref{Eq:fretRates} gives the alternative expression,
+\begin{equation}
+  E = 1 - \frac{k_{DA}}{k_{D-R}} \label{Eq:fretEffRates}
+\end{equation}
+By relating the fluorescence lifetimes to the rates, $\tau = k^{-1}$,
+we find a similar result in terms of this relevant physical parameter,
+\begin{equation}
+  E = 1 - \frac{\tau_{D}}{\tau_{DA}} \label{Eq:fretEffTau}
+\end{equation}
+
+Equivalently, we can give the FRET efficiency in terms of equilibrium
+parameters of the system,
+\begin{equation}
+  E = \frac{1}{1 + \left( \frac{r}{R_0} \right)^6}
+  \label{Eq:fretEff}
+\end{equation}
+where $R_0$ is the F\"orster radius,
+\begin{equation}
+  R_0^6 = \frac{9 c^4 Q_0 \kappa^2 J}{128 \pi^5 N_A n^4}
+  \label{Eq:R0}
+\end{equation}
+Where $N_A$ is Avogadro's number, $Q_0$ is the quantum yield of the
+donor in the absence of the acceptor, and $n$ is the index of
+refraction of the solvent.
+
+$J$ denotes the spectral overlap integral,
+\[ J = \int f_D(\lambda) \epsilon_A(\lambda) \lambda^4 d\lambda \]
+where $f_D$ is the normalized donor emission spectrum and $\epsilon_A$
+is the acceptor's molar extinction coefficient.
+
+An important but oft-overlooked ``constant'' of \eqref{Eq:R0} is
+the so-called dipole orientation factor, $\kappa^2$,
+\begin{equation}
+  \kappa = \hat\mu_D \cdot \hat\mu_A - 3(\hat\mu_D \cdot \hat R_{DA}) (\hat\mu_A \cdot \hat R_{DA})
+  \label{Eq:kappa}
+\end{equation}
+
+While measurement of the FRET efficiency is possible by way of the
+fluorescence lifetime and \eqref{Eq:fretEffTau}, a more common
+approach is by way of an intensity measurement. Here, one 
+measures $k_{R}$ and $k_{ET}$ by observing fluorescence intensities
+from the donor and acceptor fluorophores, $k^*_D$ and $k^*_A$. This
+measurement, however, is fraught with artifacts.
+
+Let us examine the processes responsible for the observed rates
+$k^*_D$ and $k^*_A$ for the acceptor and donor respectively. Assume
+that the fluorescence of interest originates from donor decay channel
+$D-R_j$ and acceptor channel $A-R_k$. We first note that not every
+excitation event will result in an emission photon due to the
+non-radiative decay pathways $NR_i$. We call the efficiency of photon
+product the quantum yield $\phi$,
+\begin{align*}
+  \phi_D & = \frac{k_{D-R_j}}{\sum k_{D-R_i} + \sum k_{D-NR_i}} \\
+  \phi_A & = \frac{k_{A-R_k}}{\sum k_{A-R_i} + \sum k_{A-NR_i}} \\
+\end{align*}
+
+Furthermore, any real measurement will have less than perfect, and
+often wavelength dependent, detection efficiency, $\eta < 1$.  Under
+these considerations, we assuming a donor excitation rate $k_{exc}$ to
+find fluorescence rates $k^*_D$ and $k^*_A$,
+\begin{align*}
+  k^*_D & = k_{exc} ~ \eta_D ~ \frac{k_{D-R_j}}{k_{ET} + \sum k_{D-R_i} + \sum k_{D-NR_i}} \\
+        & = k_{exc} ~ \eta_D ~ \phi_D ~
+           \frac{\sum k_{D-R_i} + \sum k_{D-NR_i}}{k_{ET} + \sum k_{D-R_i} + \sum k_{D-NR_i}} \\
+        & = k_{exc} ~ \eta_D ~ \phi_D ~ (1 - E) \\
+  k^*_A & = k_{exc} ~ \eta_A ~ \phi_A ~ E \\
+\end{align*}
+
+From these rates, we can construct an observed FRET efficiency (also
+known as the proximity ratio), $E^*$,
+\begin{align*}
+  E^* & = \frac{k^*_A}{k^*_A + k^*_D} \\
+      & = \left[ 1 + \left(\frac{\phi_A~\eta_A}{\phi_D~\eta_D}\right)^{-1} (E^{-1} - 1) \right]^{-1} \\ \label{Eq:proxRatio}
+\end{align*}
+We denote the quantity $(\phi_A~\eta_A / \phi_D~\eta_D)$ as $\gamma$,
+which represents the relative sensitivity of our experiment to the two
+fluorophores. While the constituents of $\gamma$ are usually
+prohibitively difficult to determine, correction for $\gamma$ as a
+whole is quite easy given proper experimental design. From
+\eqref{Eq:proxRatio}, we can derive the corrected FRET efficiency $E$,
+\begin{equation}
+  E = \frac{k^*_A}{k^*_A + \gamma k^*_D}
+  \label{Eq:gammaFretEff}
+\end{equation}
+In addition to $\gamma$ correction, there are two further corrections that
+must be routinely made during FRET data analysis. The first of these
+is spectral crosstalk between the acceptor and donor channels. This
+artifact is largely due to the imperfect spectral filtering of
+dichroic mirrors, resulting in leakage of donor photons into the
+acceptor channel. Moreover, all experiments must deal with a constant
+background on top of the measured signal. Accounting for these two effects
+yields an estimate for the true observed intensity,
+\begin{align*}
+  I_D & = k^*_D - \alpha~k^*_D + I_{D-BG} \\
+  I_A & = k^*_A + \alpha~k^*_D + I_{A-BG} \\
+\end{align*} 
+where $I_{BG}$ are the background count rates and $\alpha$ is the crosstalk
+parameter. Propagating these through our estimator for the FRET
+efficiency, we find the background, cross-talk, and $\gamma$ corrected
+FRET efficiency to be,
+\[
+  \hat E = \frac{E^* ~ \left(1 + \gamma ~ (\beta_A + \beta_D)\right) - \gamma~\beta_A - \alpha}
+    {E^* ~ (1 - \gamma) + \gamma - \alpha}
+\]
+where,
+\begin{align*}
+  \beta_A & = \frac{I_A}{k_{exc}~\eta_A~\phi_A} \\
+  \beta_D & = \frac{I_D}{k_{exc}~\eta_A~\phi_A} \\
+\end{align*}
+Clearly, the dependence on $k_{exc}~\eta_A~\phi_A$ poses a difficulty
+as these are all unobserved quantities. One way to approach this would
+be to ?.
+
+\section{Determination of $\gamma$}
+While we can now properly correct for $\gamma$ by way of
+\eqref{Eq:gammaFretEff}, this tool is useless unless we can determine
+the value of $\gamma$. The most obvious approach here is to examine a
+population with a known FRET efficiency to derive $\gamma$, which one
+can then use for correction. For this reason, the meticulous
+experimentalist will always take data on sample lacking acceptor
+fluorophores. As $\gamma$ depends upon instrumental state
+(e.g. alignment, detector response), it is important to run these
+calibration experiments often. Moreover, since the quantum yield of a
+fluorophore depends strongly on its environment, it is wise to use the
+specimen under study for these calibrations, with the acceptor
+fluorophore either desensitized or not present, of course.
+
+Lacking a dedicated donor-only experiment, one can often also
+exploit the donor-only population usually present after sample
+preparation as the calibration sample.
+
+\section{Alternating Laser Excitation}
+While FRET alone *, the information content in an experiment can be
+greatly enhanced through use of Alternating Laser Excitation (ALEX) as
+proposed by Kapanidis, {\it et al.} One of the great difficulties in
+the interpretation of FRET results is the difficulty of resolving low
+FRET efficiencies. Due to considerations of sample preparation,
+photobleaching, and *, a substantial fraction of the molecules
+measured in a typical FRET experiment will have no acceptor
+fluorophore.
+
+While distinguishing this population from a low-FRET state is nearly
+impossible under traditional FRET, ALEX uses direct excitation of the
+acceptor to probe its existence. This alternation is carried out at a
+timescale far shorter than the specimens' diffusion time, giving
+access to an additional axis of the typical FRET efficiency histogram.
+
+In the following discussion, we adopt a notation similar to that of
+Kapanidis, {\it et al}. Let \I{A}{D} denote the intensity of emission
+into the acceptor channel under donor excitation. Under this notation,
+we define our existing notation $I_A$ and $I_D$ as,
+\begin{align*}
+  I_A & = \I{A}{A} + \I{A}{D} \\
+  I_D & = \I{D}{A} + \I{D}{D} \\
+\end{align*}
+Therefore, our familiar FRET efficiency is given by,
+\[ E = \frac{\I{A}{D}}{\I{A}{D} + \gamma \I{D}{D}} \]
+Moreover, we can now define a quantity which we call the
+stoichiometry, $S$, which characterizes the ratio of acceptor
+fluorophores to donor fluorophores,
+\[ S = \frac{I\exc{D}}{I\exc{D} + I\exc{A}} \]
+
+While ALEX allows us to separate previously unseparable populations,
+it is no less susceptible to cross-talk, background, and $\gamma$
+errors. Correcting $S$ in the same manner as we did $E$ earlier, we
+find that ?.
+
+\end{document}
