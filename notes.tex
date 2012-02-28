@@ -1,6 +1,8 @@
 \documentclass{article}
 \usepackage{amsmath}
 \usepackage[color=blue!20,colorinlistoftodos]{todonotes}
+\newcommand{\refneeded}{\todo[color=green!20]{Referenced needed.}}
+
 \title{Some notes on single-molecule FRET}
 \author{Ben Gamari}
 
@@ -64,7 +66,7 @@ where $R_0$ is the F\"orster radius,
   R_0^6 = \frac{9 c^4 Q_0 \kappa^2 J}{128 \pi^5 N_A n^4}
   \label{Eq:R0}
 \end{equation}
-Where $N_A$ is Avogadro's number, $Q_0$ is the quantum yield of the
+where $N_A$ is Avogadro's number, $Q_0$ is the quantum yield of the
 donor in the absence of the acceptor, and $n$ is the index of
 refraction of the solvent.
 
@@ -264,7 +266,7 @@ wavelengths\cite{Fan2011}. Oxidative photobleaching can be suppressed
 by elimination of oxygen in the system. This can be achieved by use of
 an oxygen scavenging system, such as Puglisi's PCA/PCD
 enzyme/substrate pair\cite{Aitkin2008} or Glucose Oxidase and Catalase
-(GODCAT).
+(GODCAT)\refneeded.
 
 Triplet state lifetime can be reduced by use of a chemical system of
 reducing and oxidizing agents\cite{Vogelsang2008}. Here, a reducing
@@ -294,13 +296,84 @@ system or its fluorophores.
 
 \subsection{Photon statistics}
 Equipped with the above tools, we are now able to construct a
-reasonable FRET efficiency histogram given data from a well-conceived
+reasonable FRET efficiency histogram given data from a well-considered
 experiment. While it is often possible to derive a great deal of
 understanding from a mere qualitative examination of this histogram,
 if we are to maximize the information extracted from our experiment,
 we will need tools of a more quantitative nature.
 
 We will begin by examining the statistics of photons resulting from a
-hypothetical single-molecule experiment.
+hypothetical single-molecule experiment. Recall that under first-order
+kinetics, the evolution of the system satisfies,
+\[ \frac{d}{dt} \mathbf{G}(t) = \mathbf{K} \mathbf{G}(t) \]
+where $\mathbf{K}$ is the transition matrix, where element $k_{ij}$ is
+the rate of transition from state $j \rightarrow i$. We note that we
+can solve this equation by a Green function expansion with the
+operator $\mathbf{L} = \frac{d}{dt} - \mathbf{K}$. Recall that the
+Green function plays the role of the propagator: $G_{ji}(T)$ is the
+probability that a system in state $i$ at $t=0$ will evolve to state
+$j$ at time $T$.
+
+As a matter of practicality, our work will be much simpler in the
+Laplace domain. Recall that this entails,
+\begin{align*}
+f(t) & \rightarrow \hat f(s) \\
+\frac{d}{dt} f(t) & \rightarrow (s~ \hat f(s) - f(0)) \\
+\end{align*}
+Therefore, we have,
+\[ s~\mathbf{\hat G}(s) - \mathbf{G}(0) = \mathbf{K} \mathbf{\hat G}(s) \]
+or, after rearranging,
+\[ \mathbf{\hat G}(s) = (s \mathbf{1} - \mathbf{K})^{-1} \]
+
+With this result in hand, we set out to answer a more challenging
+question: given a system in state $\alpha$ at $t=0$ and $\beta$ at
+$t=T$, what the probability that the system undergoes the transition
+$i \rightarrow j$ exactly $N$ times.
+
+To treat this problem, we will follow in the footsteps of Gopich and
+Szabo\cite{Gopich2003}, introducing a dummy factor $\lambda$ into
+transition element $K_{ij}$ to form the new transition matrix $K^*$.
+We then proceed in finding a propagator $\mathbf{\hat F}$ for this new
+system. We can then evaluate $\mathbf{\hat F}_{\beta\alpha}$,
+expanding in powers of $\lambda$. This will produce a series of terms
+of the form $\sum_N \lambda^N P_{\beta\alpha}(N, s)$, which will serve
+to answer our original query.
+
+The propagator of our modified kinetic scheme $\mathbf{K}^*$ is easily
+found by the considering the decomposition,
+\[ \mathbf{K}^* = (\mathbf{K} - \mathbf{V}) + \lambda \mathbf{V} \]
+where $\mathbf V$ is defined with a single non-zero element, $V_{ji} =
+k_{ji}$. 
+We can then derive a propagator for these pieces
+individually, exploiting the linearity of first-order kinetics.
+This results in the propagator,
+\[ \mathbf{\hat G}^*(\lambda, s) = \left(s \mathbf{1} - (\mathbf{K} - \mathbf{V}) - \lambda \mathbf{V} \right)^{-1} \]
+
+Moreover, we note that by making $\lambda$ vanish, we preclude the $i
+\rightarrow j$ transition entirely. Intuitively, we should
+be able to relate $\mathbf{\hat G}(0, s)^*$ to our original original
+propagator $\mathbf{\hat G}(s)$ with the $i \rightarrow j$ transition
+removed. Specifically, it can be shown that,\todo{Show}
+\[ \hat G^*_{\beta\alpha}(0, s) = \hat G_{\beta\alpha}(s) -
+\frac{\hat G_{\beta j}(s) K_{ji} \hat G_{i\alpha}(s)}{1 + K_{ji} \hat G_{ij}(s)}
+\]
+
+Expanding in powers of $\lambda$, we find a series,
+\[ \mathbf{\hat G}^*(\lambda, s) = \mathbf{\hat G'}
+  + \lambda \mathbf{\hat G'} \mathbf{V} \mathbf{\hat G'}
+  + \lambda \mathbf{\hat G'} \mathbf{V} \mathbf{\hat G'} \mathbf{V} \mathbf{\hat G'}
+  + ...
+\]
+where we have defined $\mathbf{\hat G'}(s) = \mathbf{\hat G}(0, s)$.
+This gives our final result,
+\[ \hat P_{\beta\alpha}(N,s) = K_{ji}^N \hat G'_{\beta j}(s) \hat G_{ij}^{N-1} \hat G'_{i\alpha}(s) \]
+for $N \ge 1$ and $\hat P_{\beta\alpha}(N,s) = \hat
+G'_{\beta\alpha}(s)$ for $N=0$. Furthermore, it can be shown that $\mathrm{\hat G^*}$ is the generating function of this count distribution $\hat P(N,s)$. That is the $n$th moment of this
+distribution is given by,
+\[ \frac{d^n}{d^n \lambda} \mathrm{\hat G^*}(s, \lambda) \]
+evaluated at $\lambda = 0$.
+
+With this formalism in hand, we can easily approach a number of common
+questions in a single-molecule analysis.
 
 \end{document}
