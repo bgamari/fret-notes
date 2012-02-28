@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{amsmath}
+\usepackage[color=blue!20,colorinlistoftodos]{todonotes}
 \title{Some notes on single-molecule FRET}
 \author{Ben Gamari}
 
@@ -97,6 +98,7 @@ product the quantum yield $\phi$,
   \phi_D & = \frac{k_{D-R_j}}{\sum k_{D-R_i} + \sum k_{D-NR_i}} \\
   \phi_A & = \frac{k_{A-R_k}}{\sum k_{A-R_i} + \sum k_{A-NR_i}} \\
 \end{align*}
+\todo{Discuss relationship between quantum yield and lifetime}
 
 Furthermore, any real measurement will have less than perfect, and
 often wavelength dependent, detection efficiency, $\eta < 1$.  Under
@@ -186,12 +188,12 @@ these states.
 \section{Alternating Laser Excitation}
 While FRET alone *, the information content in an experiment can be
 greatly enhanced through use of Alternating Laser Excitation (ALEX) as
-proposed by Kapanidis, {\it et al.} One of the great difficulties in
-the interpretation of FRET results is the difficulty of resolving low
-FRET efficiencies. Due to considerations of sample preparation,
-photobleaching, and *, a substantial fraction of the molecules
-measured in a typical FRET experiment will have no acceptor
-fluorophore.
+proposed by Kapanidis, {\it et al.}\cite{Kapanidis2005}. One of the
+great difficulties in the interpretation of FRET results is the
+difficulty of resolving low FRET efficiencies. Due to considerations
+of sample preparation, photobleaching, and *, a substantial fraction
+of the molecules measured in a typical FRET experiment will have no
+acceptor fluorophore.
 
 While distinguishing this population from a low-FRET state is nearly
 impossible under traditional FRET, ALEX uses direct excitation of the
@@ -218,5 +220,87 @@ While ALEX allows us to separate previously unseparable populations,
 it is no less susceptible to cross-talk, background, and $\gamma$
 errors. Correcting $S$ in the same manner as we did $E$ earlier, we
 find that ?.
+
+\todo{Finish ALEX discussion}
+
+\subsection{Fluorophore photophysics}
+We would hope that our fluorophores had no physics of their own,
+instead only reflecting the physics of the system of interest. Sadly,
+it is unlikely that a molecule with this property will ever be
+discovered. In reality, fluorophores are their own chemical species
+with their own mechanics, chemical interactions, and physics. 
+
+Ultimately, any experiment studying a single-molecule is going to be
+limited by the amount of information one is able to extract from the
+specimen before it ``dies''. In the case of a fluorscence experiment,
+this death generally comes by way of bleach of fluorophores. The
+mechanisms behind what is generally referred to as ``photobleaching''
+are varied and fluorophore dependent. These include,
+\begin{itemize}
+\item Dark photo-induced isomeric states
+\item Oxidative damage by singlet oxygen
+\item Denaturation via multiple photon excitation\cite{Deschenes2002}
+\end{itemize}
+It should be noted that some of these ``bleaching'' mechanisms
+(e.g. isomization) are in fact reversible. This allows species to be
+recovered for study and can be exploited to stochastically sensitize
+or desensitize florophores.
+
+Of course, the useful lifetime of the molecule must be compared to the
+rate at which information can be extracted, namely the photon count
+rate of the experiment. While this rate is ultimately limited by the
+fluorescence lifetime, it is further limited by triplet state transitions
+present in most fluorophores. These triplet states are accessed by
+forbidden transitions through
+interaction with the environment and support effectively no
+fluoroscence. Due to their forbidden nature , these states are
+generally long-lived. Triplet transitions (also known as inter-system
+crossings) given rise to blinking of fluorescence.
+
+The experimentalist has a variety of tools at his disposal for managing
+these parasitic photophysical processes. Photo-induced isomerization
+can usually be reversed by excitation on fluorophore specific
+wavelengths\cite{Fan2011}. Oxidative photobleaching can be suppressed
+by elimination of oxygen in the system. This can be achieved by use of
+an oxygen scavenging system, such as Puglisi's PCA/PCD
+enzyme/substrate pair\cite{Aitkin2008} or Glucose Oxidase and Catalase
+(GODCAT).
+
+Triplet state lifetime can be reduced by use of a chemical system of
+reducing and oxidizing agents\cite{Vogelsang2008}. Here, a reducing
+agent serves to quench the triplet state, resulting an a radical
+anion. This anion is then reoxidized by an oxidizing agent before it
+is able to bleach the fluorophore. Common realizations of this system
+include\cite{Dave2009},
+\begin{itemize}
+\item Trolox\cite{Rasnik2006}
+\item $\beta$-mercaptoethanol (BME)
+\item mercaptoethylamine (MEA)
+\item $n$-propyl gallate
+\item 1,4-diazabicyclo[2.2.2]octane (DABCO)
+\item Cyclooctatetaene (COT)
+\end{itemize}
+
+Of course, use of these tools demands care. The elimination of oxygen
+from the system will enhance triplet transitions (as interaction
+molecular oxygen is one of the most effective ways to escape a triplet
+well\cite{Campos2011}). Moreover, at least one notable ROXS system
+(Trolox) requires oxygen to function (as photo-induced oxidation of
+Trolox gives rise to the system's reducing agent\cite{Cordes2009}).
+
+Finally, one must always keep in mind that any chemical species
+introduced to the sample environment may interact with the studied
+system or its fluorophores.
+
+\subsection{Photon statistics}
+Equipped with the above tools, we are now able to construct a
+reasonable FRET efficiency histogram given data from a well-conceived
+experiment. While it is often possible to derive a great deal of
+understanding from a mere qualitative examination of this histogram,
+if we are to maximize the information extracted from our experiment,
+we will need tools of a more quantitative nature.
+
+We will begin by examining the statistics of photons resulting from a
+hypothetical single-molecule experiment.
 
 \end{document}
