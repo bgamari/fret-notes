@@ -22,9 +22,9 @@ spectral overlap. FRET is often used in the study of single-molecule
 systems, where it enables the determination of reaction kinetics,
 binding constants, and some classes of conformational dynamics.
 By exciting the donor while observing photon emissions from both the
-donor and accessor, the experimentalist can assess the efficiency of
+donor and acceptor, the experimentalist can assess the efficiency of
 the FRET coupling. Informed by further physical models, FRET
-experiments can be interpretted to make strong, physically-relevant
+experiments can be interpreted to make strong, physically-relevant
 inferences.
 
 We define the FRET efficiency $E$ to be the quantum yield of this
@@ -100,7 +100,7 @@ product the quantum yield $\phi$,
   \phi_D & = \frac{k_{D-R_j}}{\sum k_{D-R_i} + \sum k_{D-NR_i}} \\
   \phi_A & = \frac{k_{A-R_k}}{\sum k_{A-R_i} + \sum k_{A-NR_i}} \\
 \end{align*}
-\todo{Discuss relationship between quantum yield and lifetime}
+\todo{Discuss relationship between quantum yield and lifetime, relationship between lifetime and conformational dynamics}
 
 Furthermore, any real measurement will have less than perfect, and
 often wavelength dependent, detection efficiency, $\eta < 1$.  Under
@@ -350,8 +350,8 @@ This results in the propagator,
 \[ \mathbf{\hat G}^*(\lambda, s) = \left(s \mathbf{1} - (\mathbf{K} - \mathbf{V}) - \lambda \mathbf{V} \right)^{-1} \]
 
 Moreover, we note that by making $\lambda$ vanish, we preclude the $i
-\rightarrow j$ transition entirely. Intuitively, we should
-be able to relate $\mathbf{\hat G}(0, s)^*$ to our original original
+\rightarrow j$ transition entirely. In light of this, one would suspect that we should
+be able to relate $\mathbf{\hat G^*}(0, s)$ to our original original
 propagator $\mathbf{\hat G}(s)$ with the $i \rightarrow j$ transition
 removed. Specifically, it can be shown that,\todo{Show}
 \[ \hat G^*_{\beta\alpha}(0, s) = \hat G_{\beta\alpha}(s) -
@@ -373,7 +373,15 @@ distribution is given by,
 \[ \frac{d^n}{d^n \lambda} \mathrm{\hat G^*}(s, \lambda) \]
 evaluated at $\lambda = 0$.
 
+Of course, this result is still given in the Laplace domain. In most
+cases, one will need to invert the result back to the time domain
+using a numerical inverse Laplace transform such as Gaver-Stehfest,
+
+
+
 With this formalism in hand, we can easily approach a number of common
 questions in a single-molecule analysis.
+
+\todo{Finish}
 
 \end{document}
