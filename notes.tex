@@ -121,14 +121,15 @@ From these rates, we can construct an observed FRET efficiency (also
 known as the proximity ratio), $E^*$,
 \begin{align*}
   E^* & = \frac{n_A}{n_A + n_D} \\
-      & = \left[ 1 + \left(\frac{\phi_A~\eta_A}{\phi_D~\eta_D}\right)^{-1} (E^{-1} - 1) \right]^{-1} \\ \label{Eq:proxRatio}
+      & = \left[ 1 + \left(\frac{\phi_A~\eta_A}{\phi_D~\eta_D}\right)^{-1} (E^{-1} - 1) \right]^{-1} \\
+      & = \left[ 1 + \gamma^{-1} (E^{-1} - 1) \right]^{-1} \label{Eq:proxRatio} \\
 \end{align*}
-We'll use $\gamma$ to denote the useful quantity $(\phi_A~\eta_A / \phi_D~\eta_D)$
+Where we have used $\gamma$ to denote the useful quantity $(\phi_A~\eta_A / \phi_D~\eta_D)$
 which represents the relative sensitivity of our experiment to the two
 fluorophores. While the constituents of $\gamma$ are usually
 prohibitively difficult to determine, correction for $\gamma$ as a
 whole is quite feasible given proper experimental design. From
-\eqref{Eq:proxRatio}, we can derive the corrected FRET efficiency $E$,
+\eqref{Eq:proxRatio} we can derive the corrected FRET efficiency $E$,
 \begin{equation}
   E = \frac{n_A}{n_A + \gamma n_D}
   \label{Eq:gammaFretEff}
@@ -136,11 +137,11 @@ whole is quite feasible given proper experimental design. From
 In addition to $\gamma$ correction, there are two further corrections that
 must be routinely made during FRET data analysis. The first of these
 is spectral crosstalk between the acceptor and donor channels. This
-artifact is largely due to the imperfect spectral filtering of
-dichroic mirrors, resulting in leakage of donor photons into the
-acceptor channel. Moreover, all experiments must deal with a constant
+artifact is largely due to the imperfect nature
+the dichroic mirrors used to separate donor and acceptor fluorescence and nearly always results in leakage of donor photons into the
+acceptor channel. Moreover, all experiments must deal with a constant-rate
 background on top of the measured signal. Accounting for these two effects
-yields an estimate for the true observed intensity,
+yields an result for the intensity observed by the detectors,
 \begin{align*}
   I_D & = n_D - \alpha~n_D + I_{D-BG} \\
   I_A & = n_A + \alpha~n_D + I_{A-BG} \\
