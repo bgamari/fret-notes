@@ -88,7 +88,7 @@ the so-called dipole orientation factor, $\kappa^2$,
 While measurement of the FRET efficiency is possible by way of the
 fluorescence lifetime and \eqref{Eq:fretEffTau}, a more common
 approach is ratiometric measurement of the acceptor and donor emission
-intensities. Here, one measures $k_R$ and $k_\ET$ by observing
+intensities\cite{Dahan1999}. Here, one measures $k_R$ and $k_\ET$ by observing
 fluorescence intensities from the donor and acceptor fluorophores,
 $n_D$ and $n_A$. This measurement, however, is fraught with
 artifacts.
@@ -143,7 +143,13 @@ the long tail characteristic of most dyes' the emission spectra (in
 particular, there is a significant probability that the dye will emit
 at a substantially longer wavelength than the spectrum peak).  This
 results in leakage of long-wavelength donor photons into the acceptor
-channel.
+channel\footnote{Note that there is a bit of disagreement in the
+literature regarding whether leaked photons should be counted as donor
+emissions. While early literature\cite{Dahan2005,Taylor2010} was quite
+clear that these photons should be regarded as donor emissions, later
+papers (it appears starting with Lee 2005\cite{Lee2005}) do not add
+crosstalk leakage back to the donor counts. Here we will side with
+Dahan's original paper and count these photons as donor fluorescence.}.
 
 Finally, all experiments must deal with a constant-rate
 background on top of the fluorescence signal. Sources of this background
@@ -152,7 +158,7 @@ fluorophores, and scattering at various points in the instrument.
 Accounting for these effects yields a result for the intensity
 observed by the detectors,
 \begin{align*}
-  I_D & = n_D + I_{D-BG} \\
+  I_D & = n_D - \alpha~n_d + I_{D-BG} \\
   I_A & = n_A + \alpha~n_D + I_{A-BG} \\
 \end{align*} 
 where $I_{BG}$ are the background count rates and $\alpha =
