@@ -88,11 +88,11 @@ fluorescence lifetime and \eqref{Eq:fretEffTau}, a more common
 approach is ratiometric measurement of the acceptor and donor emission
 intensities. Here, one measures $k_{R}$ and $k_{ET}$ by observing
 fluorescence intensities from the donor and acceptor fluorophores,
-$k^*_D$ and $k^*_A$. This measurement, however, is fraught with
+$n_D$ and $n_A$. This measurement, however, is fraught with
 artifacts.
 
 Let us examine the processes responsible for the observed rates
-$k^*_D$ and $k^*_A$ for the acceptor and donor respectively. Assume
+$n_D$ and $n_A$ for the acceptor and donor respectively. Assume
 that the fluorescence of interest originates from donor decay channel
 $D-R_j$ and acceptor channel $A-R_k$. We first note that not every
 excitation event will result in an emission photon due to the
@@ -106,20 +106,20 @@ product the quantum yield $\phi$,
 
 Furthermore, any real measurement will have less than perfect, and
 often wavelength dependent, detection efficiency, $\eta < 1$.  Under
-these considerations, we assuming a donor excitation rate $k_{exc}$ to
-find fluorescence rates $k^*_D$ and $k^*_A$,
+these considerations, we assume a donor excitation rate $k_{exc}$ to
+find fluorescence emission rates $n_D$ and $n_A$,
 \begin{align*}
-  k^*_D & = k_{exc} ~ \eta_D ~ \frac{k_{D-R_j}}{k_{ET} + \sum k_{D-R_i} + \sum k_{D-NR_i}} \\
-        & = k_{exc} ~ \eta_D ~ \phi_D ~
-           \frac{\sum k_{D-R_i} + \sum k_{D-NR_i}}{k_{ET} + \sum k_{D-R_i} + \sum k_{D-NR_i}} \\
-        & = k_{exc} ~ \eta_D ~ \phi_D ~ (1 - E) \\
-  k^*_A & = k_{exc} ~ \eta_A ~ \phi_A ~ E \\
+  n_D & = k_{exc} ~ \eta_D ~ \frac{k_{D-R_j}}{k_{ET} + \sum k_{D-R_i} + \sum k_{D-NR_i}} \\
+      & = k_{exc} ~ \eta_D ~ \phi_D ~
+         \frac{\sum k_{D-R_i} + \sum k_{D-NR_i}}{k_{ET} + \sum k_{D-R_i} + \sum k_{D-NR_i}} \\
+      & = k_{exc} ~ \eta_D ~ \phi_D ~ (1 - E) \\
+  n_A & = k_{exc} ~ \eta_A ~ \phi_A ~ E \\
 \end{align*}
 
 From these rates, we can construct an observed FRET efficiency (also
 known as the proximity ratio), $E^*$,
 \begin{align*}
-  E^* & = \frac{k^*_A}{k^*_A + k^*_D} \\
+  E^* & = \frac{n_A}{n_A + n_D} \\
       & = \left[ 1 + \left(\frac{\phi_A~\eta_A}{\phi_D~\eta_D}\right)^{-1} (E^{-1} - 1) \right]^{-1} \\ \label{Eq:proxRatio}
 \end{align*}
 We denote the quantity $(\phi_A~\eta_A / \phi_D~\eta_D)$ as $\gamma$,
@@ -129,7 +129,7 @@ prohibitively difficult to determine, correction for $\gamma$ as a
 whole is quite easy given proper experimental design. From
 \eqref{Eq:proxRatio}, we can derive the corrected FRET efficiency $E$,
 \begin{equation}
-  E = \frac{k^*_A}{k^*_A + \gamma k^*_D}
+  E = \frac{n_A}{n_A + \gamma n_D}
   \label{Eq:gammaFretEff}
 \end{equation}
 In addition to $\gamma$ correction, there are two further corrections that
@@ -141,8 +141,8 @@ acceptor channel. Moreover, all experiments must deal with a constant
 background on top of the measured signal. Accounting for these two effects
 yields an estimate for the true observed intensity,
 \begin{align*}
-  I_D & = k^*_D - \alpha~k^*_D + I_{D-BG} \\
-  I_A & = k^*_A + \alpha~k^*_D + I_{A-BG} \\
+  I_D & = n_D - \alpha~n_D + I_{D-BG} \\
+  I_A & = n_A + \alpha~n_D + I_{A-BG} \\
 \end{align*} 
 where $I_{BG}$ are the background count rates and $\alpha =
 \eta\emm{A}\dt{D} / \eta\emm{D}\dt{D}$ is the crosstalk
