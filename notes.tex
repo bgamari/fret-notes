@@ -40,22 +40,22 @@ system's transition rates,
 where,
 
 \begin{tabular}{lcl}
-  $k_\ET$  & = & rate of donor to acceptor energy transfer \\
-  $k_{D-R}$   & = & rate of donor fluorescence radiative decay \\
-  $k_{D-\NR}$  & = & rate of donor non-radiative decay \\
+  $k_\ET$     & = & rate of donor to acceptor energy transfer \\
+  $k^D_R$     & = & rate of donor fluorescence radiative decay \\
+  $k^D_\NR$   & = & rate of donor non-radiative decay \\
 \end{tabular}
 
-We define $k_{DA}$ to be the effective rate of donor relaxation in the presence
+We define $k^D_{DA}$ to be the rate of donor relaxation in the presence
 of the acceptor,
-\[ k_{DA}^{-1} = k_\ET^{-1} + \sum_i k_{D-R_i}^{-1} + \sum_i k_{D-\NR_i}^{-1} \]
+\[ k^D_{DA} = k_\ET + k^D_R + \sum_i k^D_{\NR_i} \]
 Eliminating $k_\ET$ from \eqref{Eq:fretRates} gives the alternative expression,
 \begin{equation}
-  E = 1 - \frac{k_{DA}}{k_{D-R}} \label{Eq:fretEffRates}
+  E = 1 - \frac{k^D_{DA}}{k^D_R} \label{Eq:fretEffRates}
 \end{equation}
 By relating the fluorescence lifetimes to the rates, $\tau = k^{-1}$,
 we find a similar result in terms of this relevant physical parameter,
 \begin{equation}
-  E = 1 - \frac{\tau_{D}}{\tau_{DA}} \label{Eq:fretEffTau}
+  E = 1 - \frac{\tau_D}{\tau_{DA}} \label{Eq:fretEffTau}
 \end{equation}
 
 Equivalently, we can give the FRET efficiency in terms of equilibrium
@@ -88,21 +88,19 @@ the so-called dipole orientation factor, $\kappa^2$,
 While measurement of the FRET efficiency is possible by way of the
 fluorescence lifetime and \eqref{Eq:fretEffTau}, a more common
 approach is ratiometric measurement of the acceptor and donor emission
-intensities. Here, one measures $k_{R}$ and $k_\ET$ by observing
+intensities. Here, one measures $k_R$ and $k_\ET$ by observing
 fluorescence intensities from the donor and acceptor fluorophores,
 $n_D$ and $n_A$. This measurement, however, is fraught with
 artifacts.
 
-Let us examine the processes responsible for the observed rates
-$n_D$ and $n_A$ for the acceptor and donor respectively. Assume
-that the fluorescence of interest originates from donor decay pathway
-$R_j$ and acceptor pathway $R_k$. We first note that not every
-excitation event will result in an emission photon due to the
-non-radiative decay pathways $\NR_i$. We call the efficiency of photon
-product the quantum yield $\phi$,
+Let us examine the processes responsible for the observed emission rates
+$n_D$ and $n_A$ for the acceptor and donor respectively. We first note
+that not every excitation event will result in an emission photon due
+to the non-radiative decay pathways $\NR_i$. We call the efficiency of
+photon product the quantum yield $\phi$,
 \begin{align*}
-  \phi_D & = \frac{k_{D-R_j}}{\sum k_{D-R_i} + \sum k_{D-\NR_i}} \\
-  \phi_A & = \frac{k_{A-R_k}}{\sum k_{A-R_i} + \sum k_{A-\NR_i}} \\
+  \phi_D & = \frac{k^D_R}{k^D_R + \sum k^D_{\NR_i}} \\
+  \phi_A & = \frac{k^A_R}{k^A_R + \sum k^A_{\NR_i}} \\
 \end{align*}
 \todo{Discuss relationship between quantum yield and lifetime, relationship between lifetime and conformational dynamics}
 
@@ -111,9 +109,9 @@ often wavelength dependent, detection efficiency, $\eta < 1$.  Under
 these considerations, we assume a donor excitation rate $k_{exc}$ to
 find fluorescence emission rates $n_D$ and $n_A$,
 \begin{align*}
-  n_D & = k_{exc} ~ \eta_D ~ \frac{k_{D-R_j}}{k_\ET + \sum k_{D-R_i} + \sum k_{D-\NR_i}} \\
+  n_D & = k_{exc} ~ \eta_D ~ \frac{k^D_R}{k_\ET + k^D_R + \sum k^D_{\NR_i}} \\
       & = k_{exc} ~ \eta_D ~ \phi_D ~
-         \frac{\sum k_{D-R_i} + \sum k_{D-\NR_i}}{k_\ET + \sum k_{D-R_i} + \sum k_{D-\NR_i}} \\
+         \frac{\sum k^D_R + \sum k^D_{\NR_i}}{k_\ET + k^D_{R_i} + \sum k^D_{\NR_i}} \\
       & = k_{exc} ~ \eta_D ~ \phi_D ~ (1 - E) \\
   n_A & = k_{exc} ~ \eta_A ~ \phi_A ~ E \\
 \end{align*}
@@ -407,9 +405,9 @@ FRET measurements are observations of a non-trivial stoichastic process.
 \item[$\phi_{A}$] Quantum yield of acceptor dye
 \item[$\eta\emm{A}\dt{D}$] Probability of detection of an acceptor photon by donor detector
 \item[$\eta_A$] Probability of detection of acceptor photon by acceptor detector, equivalent to $\eta\emm{A}\dt{A}$
-\item[$k_D$] Rate of decay of fluorophore; includes both radiative and non-radiative processes. This is the rate of decay of fluorescence intensity $n_D(t) = e^{-t k_D}$.
-\item[$k_R$] Rate of radiative decay of fluorophore. Equivalent radiative lifetime $\tau_R = k_R^{-1}$
-\item[$k_\NR$] Rate of non-radiative decay
+\item[$k^D_D$] Rate of decay of donor fluorophore; includes both radiative and non-radiative processes, i.e. $k^D_D = k^D_R + k^D_\NR$. This is the rate of decay of fluorescence intensity $n_D(t) = e^{-t k_D}$.
+\item[$k^D_R$] Rate of radiative decay of fluorophore. Equivalent radiative lifetime $\tau_R = k_R^{-1}$
+\item[$k^D_\NR$] Rate of donor non-radiative decay
 \item[$k_\ET$] Rate of (F\"orster) energy transfer
 \item[$N_A$] Observed photon count
 \item[$I_A$] Observed photon count rate
