@@ -137,11 +137,17 @@ whole is quite feasible given proper experimental design. From
 In addition to $\gamma$ correction, there are two further corrections that
 must be routinely made during FRET data analysis. The first of these
 is spectral crosstalk between the acceptor and donor channels. This
-artifact is largely due to the imperfect nature
-the dichroic mirrors used to separate donor and acceptor fluorescence and nearly always results in leakage of donor photons into the
-acceptor channel. Moreover, all experiments must deal with a constant-rate
-background on top of the measured signal. Accounting for these two effects
-yields an result for the intensity observed by the detectors,
+artifact is largely due to the imperfect nature the dichroic mirrors
+used to separate donor and acceptor fluorescence and nearly always
+results in leakage of a constant fraction of donor photons into the
+acceptor channel.
+
+Finally, all experiments must deal with a constant-rate
+background on top of the measured signal. Sources of this background
+include detector electronic noise, fluorescence from out-of-focus
+fluorophores, and scattering at various points in the instrument.
+Accounting for these effects yields an result for the intensity
+observed by the detectors,
 \begin{align*}
   I_D & = n_D - \alpha~n_D + I_{D-BG} \\
   I_A & = n_A + \alpha~n_D + I_{A-BG} \\
