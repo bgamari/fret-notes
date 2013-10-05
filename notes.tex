@@ -227,16 +227,16 @@ fluorophores, and scattering at various points in the instrument.
 Accounting for these effects yields a result for the intensity
 observed by the detectors,
 \begin{align*}
-  I_D & = n\dt{D} + I_{D-BG} \\
-  I_A & = n\dt{A} + I_{A-BG} + \alpha~n\dt{D}
+  I_D & = n\dt{D} + B_D \\
+  I_A & = n\dt{A} + B_A + \alpha~n\dt{D}
 \end{align*} 
-where $I_{BG}$ are the background count rates and $\alpha =
+where $B$ are the background count rates and $\alpha =
 \xi\dt{D}_A / \xi\dt{D}_D$ is the crosstalk parameter. Propagating
 these through our estimator for the FRET efficiency, we find the
 background, cross-talk, and $\gamma$ corrected FRET efficiency must
 satisfy,
 \begin{equation}
-  \hat E = 1 - \frac{I_D - I_{D-BG}}{I_A - I_{A-BG}} \left( (1 - \hat E)\alpha + \hat E \gamma \right)
+  \hat E = 1 - \frac{I_D - B_D}{I_A - B_A} \left( (1 - \hat E)\alpha + \hat E \gamma \right)
 \end{equation}
 Solving for $E$,
 \begin{equation}
@@ -244,8 +244,8 @@ Solving for $E$,
 \end{equation}
 where,
 \begin{align*}
-  I'_D & = I_D - I_{D-BG} \\
-  I'_A & = I_A - I_{A-BG}
+  I'_D & = I_D - B_D \\
+  I'_A & = I_A - B_A
 \end{align*}
 
 \section{Determination of $\gamma$}
@@ -282,13 +282,13 @@ One convenient means of determining $\gamma$ is through comparison of
 mean intensities of the donor-only and donor-acceptor populations. 
 Recall the observed intensities of the donor-only population ($E=0$),
 \begin{align*}
-I'_D & = k_{exc} ~ \xi\dt{D}_D + I_{D-BG} \\
-I'_A & = 0                         + I_{A-BG} \\
+I'_D & = k_{exc} ~ \xi\dt{D}_D + B_D \\
+I'_A & = 0                    + B_A \\
 \end{align*}
 and those of the donor-acceptor population,
 \begin{align*}
-I_D & = k_{exc} ~ \xi\dt{D}_D ~ (1 - E) + I_{D-BG} \\
-I_A & = k_{exc} ~ \xi\dt{A}_A ~ E       + I_{A-BG} 
+I_D & = k_{exc} ~ \xi\dt{D}_D ~ (1 - E) + B_D \\
+I_A & = k_{exc} ~ \xi\dt{A}_A ~ E       + B_A 
 \end{align*}
 
 We consider the difference in intensities between these populations
@@ -552,7 +552,7 @@ FRET measurements are observations of a non-trivial stoichastic process.
 \item[$n_A$] Photon count rate from acceptor fluorophore
 \item[$I_A$] Observed photon count rate in acceptor channel including contributions from background and crosstalk
 \item[$I\emm{A}\exc{D}$] Observed count rate in the acceptor channel during donor excitation (ALEX)
-\item[$I_{A-BG}$] Background count rate of acceptor channel
+\item[$B_A$] Background count rate of acceptor channel
 \item[$\alpha$] Crosstalk parameter, $\alpha = \eta\emm{A}\dt{D} / \eta\emm{D}\dt{D}$
 \item[$\xi\dt{A}_D$] The probability of a photon from the donor dye being detected by the acceptor detector
 \end{enumerate}
