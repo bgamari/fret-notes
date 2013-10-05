@@ -568,18 +568,24 @@ To account for diffusion, we must first model the observation
 volume. We do this by considering an observation efficiency $f(\vec
 r)$, with which we postulate the total observation count rate scales,
 \[ I_A + I_D \propto f(\vec r) \]
-
- In a confocal experiment, the observation efficiency
+In a confocal experiment, we postulate that the observation efficiency
 $f(\vec r)$ is a convolution of the excitation intensity $E(\vec j)$
 and the collection efficiency $C(\vec r)$,
-\[ f(\vec r) = E(\vec r) C(\vec r) \]
+\[ f(\vec r) = E(\vec r) ~ C(\vec r) \]
 
-Here, we will follow the convention used in fluorescence correlation
-spectroscopy\cite{Magde1972} and assume that $f$ takes a Gaussian
-form is axial symmetry,
-\[ f(\vec r) = f_0 e^{- (r_x^2 + r_y^2) / 2 \omega_{xy}^2 - r_z^2 / 2 \omega_z^2} \]
+However, as a simplifying assumption we will instead follow the
+convention used in fluorescence correlation
+spectroscopy\cite{Magde1972} and assume that $f$ takes a Gaussian form
+with axial symmetry,
+\[ f(\vec r) = f_0 ~ e^{- (r_x^2 + r_y^2) / 2 \omega_{xy}^2 - r_z^2 / 2 \omega_z^2} \]
 
-The first matter is interest is the probability of seeing 
+The first result of interest is the probability of seeing a mean
+observation efficiency $\bar f$ over a time period of $T$,
+\begin{align*}
+  P(\bar f, T) & = \int D\vec{r}~ P(\vec{r}) \int_0^T dt~ f(\vec{r}(t))
+\end{align*}
+where the first integral is a functional integral over paths
+$\vec r(t)$.
 
 \section{Index of notation}
 
