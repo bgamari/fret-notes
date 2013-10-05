@@ -85,6 +85,7 @@ the so-called dipole orientation factor, $\kappa^2$,
   \label{Eq:kappa}
 \end{equation}
 
+\subsection{Measuring FRET}
 While measurement of the FRET efficiency is possible by way of the
 fluorescence lifetime and \eqref{Eq:fretEffTau}, a more common
 approach is ratiometric measurement of the acceptor and donor emission
@@ -105,10 +106,15 @@ photon product the quantum yield $\phi$,
 \todo{Discuss relationship between quantum yield and lifetime,
 relationship between lifetime and conformational dynamics}
 
-Furthermore, any real measurement will have less than perfect, and
-often wavelength dependent, detection efficiency, $\eta < 1$.  Under
-these considerations, we assume a donor excitation rate $k_{exc}$ to
-find fluorescence emission rates $n_D$ and $n_A$,
+Furthermore, any real measurement will a wavelength dependent,
+detection efficiency, $\eta < 1$, due to optical losses and detector
+quantum yield. To be fully general, we will consider the detection
+efficiency $\eta^j_i$ to be the probability of a photon in spectral
+band $i$ being detected by detector channel $j$.
+
+Under these considerations, we assume a donor
+excitation rate $k_{exc}$ to find fluorescence emission rates $n_D$
+and $n_A$,
 \begin{align}
   n_D & = k_{exc} ~ \eta_D ~ \frac{k^D_R}{k_\ET + k^D_R + \sum k^D_{\NR_i}} \\
       & = k_{exc} ~ \eta_D ~ \phi_D ~
