@@ -39,12 +39,13 @@ system's transition rates,
   \label{Eq:fretRates}
 \end{equation}
 where,
-
 \begin{tabular}{lcl}
-  $k_\ET$     & = & rate of donor to acceptor energy transfer \\
-  $k^D_R$     & = & rate of donor fluorescence radiative decay \\
-  $k^D_\NR$   & = & rate of donor non-radiative decay \\
+  $k_\ET$          & = & rate of donor to acceptor energy transfer \\
+  $k^D_{R-\lambda}$  & = & rate of donor decay into photon of wavelength $\lambda$ \\
+  $k^D_\NR$        & = & rate of donor non-radiative decay \\
 \end{tabular}
+For convenience, we will use $k^D_R$ to denote the total radiative decay rate,
+\[ k^D_R = \int d\lambda k^D_{R-\lambda} \]
 
 We define $k^D_{DA}$ to be the rate of donor relaxation in the presence
 of the acceptor,
@@ -99,47 +100,82 @@ Let us examine the processes responsible for the observed emission rates
 $n_D$ and $n_A$ for the acceptor and donor respectively. We first note
 that not every excitation event will result in an emission photon due
 to the non-radiative decay pathways $\NR_i$. We call the fraction of
-excitations which produce a photon the quantum yield $\phi$,
+excitations which produce a photon of wavelength $\lambda$ the quantum
+yield $\phi(\lambda)$,
 \begin{align*}
-  \phi_D & = \frac{k^D_R}{k^D_R + \sum k^D_{\NR_i}} \\
-  \phi_A & = \frac{k^A_R}{k^A_R + \sum k^A_{\NR_i}} \\
+  \phi_D(\lambda) & = \frac{k^D_{R-\lambda}}{k^D_R + \sum k^D_{\NR_i}} \\
+  \phi_A(\lambda) & = \frac{k^A_{R-\lambda}}{k^A_R + \sum k^A_{\NR_i}} \\
 \end{align*}
 \todo{Discuss relationship between quantum yield and lifetime,
 relationship between lifetime and conformational dynamics}
 
 Furthermore, any real measurement will a wavelength dependent,
 detection efficiency, $\eta < 1$, due to optical losses and detector
-quantum yield. To be fully general, we will consider the detection
-efficiency $\eta^j_i$ to be the probability of a photon in spectral
-band $i$ being detected by detector channel $j$.
+quantum yield. For full generality, we will consider the detection
+efficiency $\eta_i(\lambda)$ to be the probability of a photon of
+wavelength $\lambda$ being detected by detector channel $i$.
 
 Under these considerations, we assume a donor excitation rate
-$k_{exc}$ to find fluorescence emission rates $n_D$ and $n_A$,
-\begin{align}
-  n_D & = k_{exc} ~ \eta_D ~ \frac{k^D_R}{k_\ET + k^D_R + \sum k^D_{\NR_i}} \\
-      & = k_{exc} ~ \eta_D ~ \phi_D ~
-         \frac{\sum k^D_R + \sum k^D_{\NR_i}}{k_\ET + k^D_{R_i} + \sum k^D_{\NR_i}} \\
-      & = k_{exc} ~ \eta_D ~ \phi_D ~ (1 - E) \\
-  n_A & = k_{exc} ~ \eta_A ~ \phi_A ~ E \\
-\end{align}
+$k_{exc}$ to find rates $n\dt{i}_j$: the rate of detection by
+detector $i$ of photons originating from fluorophore $j$. Let's begin
+by examining $n\dt{D}_D$, the rate of photons from donor-fluoroscence
+detected by the donor detector,
+\begin{align*}
+  n\dt{D}_D
+  & = \int d\lambda ~ k_{exc} ~ \eta_D(\lambda) ~ \frac{k^D_{R-\lambda}}{k_\ET + k^D_R + \sum k^D_{\NR_i}} \\
+  & = \int d\lambda ~ k_{exc} ~ \eta_D(\lambda) ~ \phi_D(\lambda) ~
+         \frac{k^D_R + \sum k^D_{\NR_i}}{k_\ET + k^D_R + \sum k^D_{\NR_i}} \\
+  & = \int d\lambda ~ k_{exc} ~ \eta_D(\lambda) ~ \phi_D(\lambda) ~ (1 - E) \\
+  & = k_{exc} ~ \xi\dt{D}_D ~ (1 - E)
+\end{align*}
+Where we use $\xi_i\dt{j}$ to denote the probability that a photon
+emitted by fluorophore $i$ is registered by detector $j$,
+\[ \xi_i\dt{j} = \int d\lambda ~ \phi_i(\lambda) ~ \eta_j(\lambda) \]
+%
+The remaining rates follow similarly,
+\begin{align*}
+  n\dt{A}_D & = k_{exc} ~ \xi\dt{A}_D ~ (1 - E) \, &
+  n\dt{D}_D & = k_{exc} ~ \xi\dt{D}_D ~ (1 - E) \\
+  n\dt{A}_A & = k_{exc} ~ \xi\dt{A}_A ~ E \, &
+  n\dt{D}_A & = k_{exc} ~ \xi\dt{D}_A ~ E
+\end{align*}
+
+Finally, we sum over our two fluorophores to arrive at the total count
+rate in each detection channel,
+\begin{align*}
+  n\dt{D} & = n\dt{D}_D + d\dt{D}_A \\
+  n\dt{A} & = n\dt{A}_D + d\dt{A}_A
+\end{align*}
+For the moment we will let $\xi_i\dt{j} = 0$ when $i \ne j$ (that is,
+assuming each detector will only detect emissions from its respective
+fluorophore). We will relax this assumption shortly and in so doing
+correct for a common experimental artifact known as crosstalk. Therefore,
+\begin{align*}
+  n\dt{D} & = k_{exc} ~ \xi\dt{D}_D ~ (1 - E) \\
+  n\dt{A} & = k_{exc} ~ \xi\dt{A}_A ~ E
+\end{align*}
 
 From these rates, we can construct an observed FRET efficiency (also
 known as the proximity ratio), $E^*$,
 \begin{align*}
-  E^* & = \frac{n_A}{n_A + n_D} \\
-      & = \left[ 1 + \left(\frac{\phi_A~\eta_A}{\phi_D~\eta_D}\right)^{-1} (E^{-1} - 1) \right]^{-1} \\
-      & = \left[ 1 + \gamma^{-1} (E^{-1} - 1) \right]^{-1} \\ \label{Eq:proxRatio}
+  E^* & = \frac{n\dt{A}}{n\dt{A} + n\dt{D}} \\
+      & = \left[ 1 + \left(\frac{\xi\dt{A}_A}{\xi\dt{D}_D}\right)^{-1} (E^{-1} - 1) \right]^{-1} \\
+      & = \left[ 1 + \gamma^{-1} (E^{-1} - 1) \right]^{-1} \label{Eq:proxRatio}
 \end{align*}
-Where we have used $\gamma$ to denote the useful quantity $(\phi_A~\eta_A / \phi_D~\eta_D)$
+Where we have used $\gamma$ to denote the useful quantity $(\xi\dt{A}_A / \xi\dt{D}_D)$
 which represents the relative sensitivity of our experiment to the two
-fluorophores. While the constituents of $\gamma$ are usually
-prohibitively difficult to determine, correction for $\gamma$ as a
-whole is quite feasible given proper experimental design. From
-\eqref{Eq:proxRatio} we can derive the corrected FRET efficiency $E$,
+fluorophores. While the constituents of $\gamma$ (the detection
+efficiencies $\eta$ and the quantum yields $\phi$) are usually
+prohibitively difficult to determine individually, correction for
+$\gamma$ as a whole is quite feasible given proper experimental
+design. From \eqref{Eq:proxRatio} we can derive the corrected FRET
+efficiency $E$,
 \begin{align}
-  E & = \frac{n_A}{n_A + \gamma n_D} \\
+  E & = \frac{n\dt{A}}{n\dt{A} + \gamma n\dt{D}} \\
   & = \left( 1 + \gamma ~ (E^{-1} - 1) \right)^{-1} \label{Eq:gammaFretEff}
 \end{align}
+
+\subsection{Background and Crosstalk}
 In addition to $\gamma$ correction, there are two further corrections that
 must be routinely made during FRET data analysis. The first of these
 is spectral crosstalk between the acceptor and donor channels. This
@@ -164,8 +200,8 @@ fluorophores, and scattering at various points in the instrument.
 Accounting for these effects yields a result for the intensity
 observed by the detectors,
 \begin{align*}
-  I_D & = n_D - \alpha~n_d + I_{D-BG} \\
-  I_A & = n_A + \alpha~n_D + I_{A-BG} \\
+  I_D & = n\dt{D} - \alpha~n\dt{D} + I_{D-BG} \\
+  I_A & = n\dt{A} + \alpha~n\dt{D} + I_{A-BG}
 \end{align*} 
 where $I_{BG}$ are the background count rates and $\alpha =
 \eta\emm{A}\dt{D} / \eta\emm{D}\dt{D}$ is the crosstalk
@@ -179,7 +215,7 @@ FRET efficiency to be,
 where,
 \begin{align*}
   \beta_A & = \frac{I_A}{k_{exc}~\eta_A~\phi_A} \\
-  \beta_D & = \frac{I_D}{k_{exc}~\eta_A~\phi_A} \\
+  \beta_D & = \frac{I_D}{k_{exc}~\eta_A~\phi_A}
 \end{align*}
 Clearly, the dependence on $k_{exc}~\eta_A~\phi_A$ poses a difficulty
 as these are all unobserved quantities. One way to approach this would
@@ -219,13 +255,13 @@ One convenient means of determining $\gamma$ is through comparison of
 mean intensities of the donor-only and donor-acceptor populations. 
 Recall the observed intensities of the donor-only population ($E=0$),
 \begin{align*}
-I'_D & = k_{exc} ~ \eta_D ~ \phi_D  + I_{D-BG} \\
+I'_D & = k_{exc} ~ \xi\dt{D}_D + I_{D-BG} \\
 I'_A & = 0                         + I_{A-BG} \\
 \end{align*}
 and those of the donor-acceptor population,
 \begin{align*}
-I_D & = k_{exc} ~ \eta_D ~ \phi_D ~ (1 - E) + I_{D-BG} \\
-I_A & = k_{exc} ~ \eta_A ~ \phi_A ~ E       + I_{A-BG} 
+I_D & = k_{exc} ~ \xi\dt{D}_D ~ (1 - E) + I_{D-BG} \\
+I_A & = k_{exc} ~ \xi\dt{A}_A ~ E       + I_{A-BG} 
 \end{align*}
 
 We consider the difference in intensities between these populations
@@ -233,10 +269,10 @@ in both of these channels,
 \begin{align*}
   \Delta I_D
   & = I_D - I'_D \\
-  & = (\alpha - 1) ~ \eta ~ \phi_D ~ k_{exc} ~ E \\
+  & = (\alpha - 1) ~ \xi\dt{D}_D ~ k_{exc} ~ E \\
   \Delta I_A
   & = I_A - I'_A \\
-  & = (\eta_A ~ \phi_A - \alpha~\eta_D~\phi_D) ~ k_{exc} ~ E \\
+  & = (\xi\dt{A}_A - \alpha~\xi\dt{D}_D) ~ k_{exc} ~ E \\
 \end{align*}
 We note that by taking the ratio of these, we have a relationship between
 $\gamma$, the intensity differences, and the cross-talk parameter,
@@ -476,7 +512,9 @@ FRET measurements are observations of a non-trivial stoichastic process.
 \begin{enumerate}
 \item[$E^*$] Proximity ratio (FRET efficiency not corrected for $\gamma$):
 \item[$E$] FRET efficiency corrected for gamma
-\item[$\phi_{A}$] Quantum yield of acceptor dye
+\item[$\phi_{A}(\lambda)$] Probability that excited acceptor dye will produce photon of wavelength $\lambda$
+\item[$\phi_{A}$] Quantum yield of acceptor dye integrated over $\lambda$
+\item[$\eta\dt{D}(\lambda)$] Probability that a photon of wavelength $\lambda$ will be detected by donor detector
 \item[$\eta\emm{A}\dt{D}$] Probability of detection of an acceptor photon by donor detector
 \item[$\eta_A$] Probability of detection of acceptor photon by acceptor detector, equivalent to $\eta\emm{A}\dt{A}$
 \item[$k^D_D$] Rate of decay of donor fluorophore; includes both radiative and non-radiative processes, i.e. $k^D_D = k^D_R + k^D_\NR$. This is the rate of decay of fluorescence intensity $n_D(t) = e^{-t k_D}$.
@@ -489,6 +527,7 @@ FRET measurements are observations of a non-trivial stoichastic process.
 \item[$I\emm{A}\exc{D}$] Observed count rate in the acceptor channel during donor excitation (ALEX)
 \item[$I_{A-BG}$] Background count rate of acceptor channel
 \item[$\alpha$] Crosstalk parameter, $\alpha = \eta\emm{A}\dt{D} / \eta\emm{D}\dt{D}$
+\item[$\xi\dt{A}_D$] The probability of a photon from the donor dye being detected by the acceptor detector
 \end{enumerate}
 
 \end{document}
