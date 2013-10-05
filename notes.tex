@@ -113,9 +113,8 @@ quantum yield. To be fully general, we will consider the detection
 efficiency $\eta^j_i$ to be the probability of a photon in spectral
 band $i$ being detected by detector channel $j$.
 
-Under these considerations, we assume a donor
-excitation rate $k_{exc}$ to find fluorescence emission rates $n_D$
-and $n_A$,
+Under these considerations, we assume a donor excitation rate
+$k_{exc}$ to find fluorescence emission rates $n_D$ and $n_A$,
 \begin{align}
   n_D & = k_{exc} ~ \eta_D ~ \frac{k^D_R}{k_\ET + k^D_R + \sum k^D_{\NR_i}} \\
       & = k_{exc} ~ \eta_D ~ \phi_D ~
@@ -485,11 +484,11 @@ FRET measurements are observations of a non-trivial stoichastic process.
 \item[$k^D_\NR$] Rate of donor non-radiative decay
 \item[$k_\ET$] Rate of (F\"orster) energy transfer
 \item[$N_A$] Observed photon count
-\item[$I_A$] Observed photon count rate
+\item[$n_A$] Photon count rate from acceptor fluorophore
+\item[$I_A$] Observed photon count rate from acceptor fluorophore with contributions from background and crosstalk
 \item[$I\emm{A}\exc{D}$] Observed count rate in the acceptor channel during donor excitation (ALEX)
 \item[$I_{A-BG}$] Background count rate of acceptor channel
 \item[$\alpha$] Crosstalk parameter, $\alpha = \eta\emm{A}\dt{D} / \eta\emm{D}\dt{D}$
-\item[$n_A$] Rate of photon emissions from acceptor fluorophore
 \end{enumerate}
 
 \end{document}
