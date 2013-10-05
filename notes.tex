@@ -109,20 +109,20 @@ Furthermore, any real measurement will have less than perfect, and
 often wavelength dependent, detection efficiency, $\eta < 1$.  Under
 these considerations, we assume a donor excitation rate $k_{exc}$ to
 find fluorescence emission rates $n_D$ and $n_A$,
-\begin{align*}
+\begin{align}
   n_D & = k_{exc} ~ \eta_D ~ \frac{k^D_R}{k_\ET + k^D_R + \sum k^D_{\NR_i}} \\
       & = k_{exc} ~ \eta_D ~ \phi_D ~
          \frac{\sum k^D_R + \sum k^D_{\NR_i}}{k_\ET + k^D_{R_i} + \sum k^D_{\NR_i}} \\
       & = k_{exc} ~ \eta_D ~ \phi_D ~ (1 - E) \\
   n_A & = k_{exc} ~ \eta_A ~ \phi_A ~ E \\
-\end{align*}
+\end{align}
 
 From these rates, we can construct an observed FRET efficiency (also
 known as the proximity ratio), $E^*$,
 \begin{align*}
   E^* & = \frac{n_A}{n_A + n_D} \\
       & = \left[ 1 + \left(\frac{\phi_A~\eta_A}{\phi_D~\eta_D}\right)^{-1} (E^{-1} - 1) \right]^{-1} \\
-      & = \left[ 1 + \gamma^{-1} (E^{-1} - 1) \right]^{-1} \label{Eq:proxRatio} \\
+      & = \left[ 1 + \gamma^{-1} (E^{-1} - 1) \right]^{-1} \\ \label{Eq:proxRatio}
 \end{align*}
 Where we have used $\gamma$ to denote the useful quantity $(\phi_A~\eta_A / \phi_D~\eta_D)$
 which represents the relative sensitivity of our experiment to the two
@@ -130,10 +130,10 @@ fluorophores. While the constituents of $\gamma$ are usually
 prohibitively difficult to determine, correction for $\gamma$ as a
 whole is quite feasible given proper experimental design. From
 \eqref{Eq:proxRatio} we can derive the corrected FRET efficiency $E$,
-\begin{equation}
-  E = \frac{n_A}{n_A + \gamma n_D}
-  \label{Eq:gammaFretEff}
-\end{equation}
+\begin{align}
+  E & = \frac{n_A}{n_A + \gamma n_D} \\
+  & = \left( 1 + \gamma ~ (E^{-1} - 1) \right)^{-1} \label{Eq:gammaFretEff}
+\end{align}
 In addition to $\gamma$ correction, there are two further corrections that
 must be routinely made during FRET data analysis. The first of these
 is spectral crosstalk between the acceptor and donor channels. This
@@ -245,10 +245,10 @@ the face of short bursts.
 
 \subsection{From fluorescence lifetimes}
 
-Fluorescence lifetimes provide an estimate for the FRET efficiency unaffected by
-$\gamma$. If $\gamma$ itself is needed, it can be easily derived from
-the FRET efficiency computed from the lifetime in conjunction with the
-observed proximity ratio.
+Fluorescence lifetimes provide an estimate for the FRET efficiency
+unaffected by $\gamma$. If $\gamma$ itself is needed, it can be easily
+derived from the FRET efficiency computed from the lifetime in
+conjunction with the observed proximity ratio.
 
 \subsection{Alternating Laser Excitation}
 
@@ -273,19 +273,23 @@ timescale far shorter than the specimens' diffusion time, giving
 access to an additional axis of the typical FRET efficiency histogram.
 
 In the following discussion, we adopt a notation similar to that of
-Kapanidis, {\it et al}. Let \I{A}{D} denote the intensity of emission
-into the acceptor channel under donor excitation. Under this notation,
-we define our existing notation $I_A$ and $I_D$ as,
+Kapanidis, {\it et al}. Let $I\emm{A}\exc{D}$ denote the intensity of
+emission into the acceptor channel under donor excitation. Likewise,
+we let $n\emm{A}\exc{D}$ denote the underlying emission rate of
+acceptor dye under donor excitation.  We can define our existing
+notation $I_A$ and $I_D$ in terms of these quantities as,
 \begin{align*}
-  I_A & = \I{A}{A} + \I{A}{D} \\
-  I_D & = \I{D}{A} + \I{D}{D} \\
+  I_A & = I\emm{A}\exc{A} + I\emm{A}\exc{D} \\
+  I_D & = I\emm{D}\exc{A} + I\emm{D}\exc{D} \\
 \end{align*}
-Therefore, our familiar FRET efficiency is given by,
-\[ E = \frac{\I{A}{D}}{\I{A}{D} + \gamma \I{D}{D}} \]
-Moreover, we can now define a quantity which we call the
+Further, our familiar FRET efficiency becomes,
+\[ E = \frac{ n\emm{A}\exc{D} }{ n\emm{A}\exc{D} + \gamma n\emm{D}\exc{D} } \]
+We can now also define a quantity which we call the
 stoichiometry, $S$, which characterizes the ratio of acceptor
-fluorophores to donor fluorophores,
-\[ S = \frac{I\exc{D}}{I\exc{D} + I\exc{A}} \]
+intensity to donor intensity,
+\newcommand{\Ifret}{\ensuremath{I_\mathrm{FRET}}}
+\[ S = \frac{\gamma \I{D}{D} + \Ifret}{\gamma \I{D}{D} + \Ifret + \I{A}{A}} \]
+where we have de
 
 While ALEX allows us to separate previously unseparable populations,
 it is no less susceptible to cross-talk, background, and $\gamma$
@@ -294,9 +298,13 @@ find that ?.
 
 \todo{Finish ALEX discussion}
 
+\subsection{Determination of $\gamma$}
+
+Note that the
+
 \subsection{Fluorophore photophysics}
-We would hope that our fluorophores had no physics of their own,
-instead only reflecting the physics of the system of interest. Sadly,
+We would hope that our fluorophores had no physics of their own and
+instead only reflect the physics of the system of interest. Sadly,
 it is unlikely that a molecule with this property will ever be
 discovered. In reality, fluorophores are their own chemical species
 with their own mechanics, chemical interactions, and physics. 
