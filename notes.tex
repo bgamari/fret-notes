@@ -240,8 +240,13 @@ satisfy,
 \end{equation}
 Solving for $E$,
 \begin{equation}
-  \hat E = \frac{\alpha I'_D - I_A}{\alpha I'_D - \gamma I'_D - I'_A}
+  \hat E = \frac{\alpha I'_D - I'_A}{\alpha I'_D - \gamma I'_D - I'_A}
 \end{equation}
+where,
+\begin{align*}
+  I'_D & = I_D - I_{D-BG} \\
+  I'_A & = I_A - I_{A-BG}
+\end{align*}
 
 \section{Determination of $\gamma$}
 While we can now properly correct for $\gamma$ by way of
