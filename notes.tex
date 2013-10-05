@@ -185,13 +185,40 @@ the long tail characteristic of most dyes' the emission spectra (in
 particular, there is a significant probability that the dye will emit
 at a substantially longer wavelength than the spectrum peak).  This
 results in leakage of long-wavelength donor photons into the acceptor
-channel\footnote{Note that there is a bit of disagreement in the
+channel. Formally, this is manifested as $\xi\dt{A}_D \ne 0$. Acceptor
+leakage into the donor is in practice quite rare, thus we shall retain
+our assumption that $\xi\dt{D}_A=0$.
+\footnote{Note that there is a bit of disagreement in the
 literature regarding whether leaked photons should be counted as donor
 emissions. While early literature\cite{Dahan2005,Taylor2010} was quite
 clear that these photons should be regarded as donor emissions, later
 papers (it appears starting with Lee 2005\cite{Lee2005}) do not add
 crosstalk leakage back to the donor counts. Here we will side with
-Dahan's original paper and count these photons as donor fluorescence.}.
+Dahan's original paper and count these photons as donor
+fluorescence.}.
+
+Intuitively, the magnitude of this leakage will determine the
+proximity ratio observed for a species with $E=0$. Concretely, crosstalk
+will add non-fluorescence counts to the acceptor channel,
+\begin{equation*}
+  n\dt{A} = k_{exc} \left( (1-E)~\xi\dt{A}_D + E~\xi\dt{A}_A \right)
+\end{equation*}
+If we know the rate embodied by the first term above, we can correct
+our observations for crosstalk. We will see precisely how to do this
+shortly.
+
+To quantify this,
+we examine the observed fluorescence intensities for a population with
+zero FRET,
+\begin{align*}
+  n\dt{D}(E=0) & = k_{exc} \xi\dt{D}_D \\
+  n\dt{A}(E=0) & = k_{exc} \xi\dt{A}_D
+\end{align*} 
+By examination we see that the ratio of these quantities will give us
+the required quantity,
+\begin{equation*}
+  \frac{n\dt{D}(E=0)}{n\dt{A}(E=0)} = \frac{\xi\dt{D}_D}{\xi\dt{A}_D} = \alpha
+\end{equation*}
 
 Finally, all experiments must deal with a constant-rate
 background on top of the fluorescence signal. Sources of this background
@@ -200,26 +227,21 @@ fluorophores, and scattering at various points in the instrument.
 Accounting for these effects yields a result for the intensity
 observed by the detectors,
 \begin{align*}
-  I_D & = n\dt{D} - \alpha~n\dt{D} + I_{D-BG} \\
-  I_A & = n\dt{A} + \alpha~n\dt{D} + I_{A-BG}
+  I_D & = n\dt{D} + I_{D-BG} \\
+  I_A & = n\dt{A} + I_{A-BG} + \alpha~n\dt{D}
 \end{align*} 
 where $I_{BG}$ are the background count rates and $\alpha =
-\eta\emm{A}\dt{D} / \eta\emm{D}\dt{D}$ is the crosstalk
-parameter. Propagating these through our estimator for the FRET
-efficiency, we find the background, cross-talk, and $\gamma$ corrected
-FRET efficiency to be,
-\[
-  \hat E = \frac{E^* ~ \left(1 + \gamma ~ (\beta_A + \beta_D)\right) - \gamma~\beta_A - \alpha}
-    {E^* ~ (1 - \gamma) + \gamma - \alpha}
-\]
-where,
-\begin{align*}
-  \beta_A & = \frac{I_A}{k_{exc}~\eta_A~\phi_A} \\
-  \beta_D & = \frac{I_D}{k_{exc}~\eta_A~\phi_A}
-\end{align*}
-Clearly, the dependence on $k_{exc}~\eta_A~\phi_A$ poses a difficulty
-as these are all unobserved quantities. One way to approach this would
-be to ?.
+\xi\dt{D}_A / \xi\dt{D}_D$ is the crosstalk parameter. Propagating
+these through our estimator for the FRET efficiency, we find the
+background, cross-talk, and $\gamma$ corrected FRET efficiency must
+satisfy,
+\begin{equation}
+  \hat E = 1 - \frac{I_D - I_{D-BG}}{I_A - I_{A-BG}} \left( (1 - \hat E)\alpha + \hat E \gamma \right)
+\end{equation}
+Solving for $E$,
+\begin{equation}
+  \hat E = \frac{\alpha I'_D - I_A}{\alpha I'_D - \gamma I'_D - I'_A}
+\end{equation}
 
 \section{Determination of $\gamma$}
 While we can now properly correct for $\gamma$ by way of
