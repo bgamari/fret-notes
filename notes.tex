@@ -9,8 +9,6 @@
 \newcommand{\emm}[1]{\ensuremath{_{#1_\mathrm{em}}}}   % emission
 \newcommand{\exc}[1]{\ensuremath{^{#1_\mathrm{exc}}}}  % excitation
 \newcommand{\dt}[1]{\ensuremath{^{#1_\mathrm{det}}}}   % detector
-% \I{em}{exc}
-\newcommand{\I}[2]{\ensuremath{I\emm{#1}\exc{#2}}}
 \newcommand{\NR}{\ensuremath{\mathit{NR}}}          % non-radiative
 \newcommand{\ET}{\ensuremath{\mathit{ET}}}          % energy transfer
     
@@ -294,7 +292,7 @@ We can now also define a quantity which we call the
 stoichiometry, $S$, which characterizes the ratio of acceptor
 intensity to donor intensity,
 \newcommand{\Ifret}{\ensuremath{I_\mathrm{FRET}}}
-\[ S = \frac{\gamma \I{D}{D} + \Ifret}{\gamma \I{D}{D} + \Ifret + \I{A}{A}} \]
+\[ S = \frac{\gamma I\emm{D}\exc{D} + \Ifret}{\gamma I\emm{D}\exc{D} + \Ifret + I\emm{A}\exc{A}} \]
 where we have de
 
 While ALEX allows us to separate previously unseparable populations,
@@ -485,7 +483,7 @@ FRET measurements are observations of a non-trivial stoichastic process.
 \item[$k_\ET$] Rate of (F\"orster) energy transfer
 \item[$N_A$] Observed photon count
 \item[$I_A$] Observed photon count rate
-\item[$\I{A}{D}$] Observed count rate in the acceptor channel during donor excitation (ALEX)
+\item[$I\emm{A}\exc{D}$] Observed count rate in the acceptor channel during donor excitation (ALEX)
 \item[$I_{A-BG}$] Background count rate of acceptor channel
 \item[$\alpha$] Crosstalk parameter, $\alpha = \eta\emm{A}\dt{D} / \eta\emm{D}\dt{D}$
 \item[$n_A$] Rate of photon emissions from acceptor fluorophore
