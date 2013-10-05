@@ -7,6 +7,7 @@
 \author{Ben Gamari}
 
 \newcommand{\mean}[1]{\ensuremath{\langle #1 \rangle}}
+\newcommand{\norm}[1]{\ensuremath{\lVert #1 \lVert}}
 
 \newcommand{\emm}[1]{\ensuremath{_{#1_\mathrm{em}}}}   % emission
 \newcommand{\exc}[1]{\ensuremath{^{#1_\mathrm{exc}}}}  % excitation
@@ -578,14 +579,26 @@ convention used in fluorescence correlation
 spectroscopy\cite{Magde1972} and assume that $f$ takes a Gaussian form
 with axial symmetry,
 \[ f(\vec r) = f_0 ~ e^{- (r_x^2 + r_y^2) / 2 \omega_{xy}^2 - r_z^2 / 2 \omega_z^2} \]
+where the axis of symmetry $\hat z$ is along the optical axis of the
+instrument.
 
 The first result of interest is the probability of seeing a mean
 observation efficiency $\bar f$ over a time period of $T$,
 \begin{align*}
   P(\bar f, T) & = \int D\vec{r}~ P(\vec{r}) \int_0^T dt~ f(\vec{r}(t))
 \end{align*}
-where the first integral is a functional integral over paths
+where the first integral is a functional integral over Brownian paths
 $\vec r(t)$.
+
+We recall that under normal diffusion, the probability of a particle
+with diffusivity $D$ being displaced by $\Delta \vec{r}$ in a time
+$\Delta t$ is normally distributed,
+
+\[
+  P\left( \vec{r}(\Delta t) = \vec{r}(0) + \Delta \vec{r} \right) =
+  \frac{1}{\sqrt{2\pi D \Delta t}}
+  e^{\norm{\Delta \vec{r}}^2 / 2 D \Delta t}
+\] 
 
 \section{Index of notation}
 
