@@ -6,6 +6,8 @@
 \title{Some notes on single-molecule FRET}
 \author{Ben Gamari}
 
+\newcommand{\mean}[1]{\ensuremath{\langle #1 \rangle}}
+
 \newcommand{\emm}[1]{\ensuremath{_{#1_\mathrm{em}}}}   % emission
 \newcommand{\exc}[1]{\ensuremath{^{#1_\mathrm{exc}}}}  % excitation
 \newcommand{\dt}[1]{\ensuremath{^{#1_\mathrm{det}}}}   % detector
@@ -175,7 +177,7 @@ efficiency $E$,
   & = \left( 1 + \gamma ~ (E^{-1} - 1) \right)^{-1} \label{Eq:gammaFretEff}
 \end{align}
 
-\subsection{Background and Crosstalk}
+\subsection{Background and crosstalk}
 In addition to $\gamma$ correction, there are two further corrections that
 must be routinely made during FRET data analysis. The first of these
 is spectral crosstalk between the acceptor and donor channels. This
@@ -530,9 +532,54 @@ questions in a single-molecule analysis.
 
 \todo{Finish}
 
-\section{A generative model of FRET observations}
+\section{Generative modelling of FRET observations}
 
-FRET measurements are observations of a non-trivial stoichastic process.
+Up to this point, we've been regarding observed intensities as single scalar
+values. In reality, FRET measurements consist of observations of a
+non-trivial stoichastic process. The natural way to treat inference of
+physical parameters from these observations is via generative
+probabilistic modelling. That is, we seek to write down a model of the
+form,
+\[ P(\vec X, \vec\theta) \]
+giving the probability of observations $\vec X$ (say, photon arrival times)
+under a physical model with parameters $\vec\theta$ (say, $\gamma$ and $\mean{E}$)
+
+\subsection{Poisson processes}
+\subsection{Bayes theorem}
+\subsection{A simple model of FRET}
+In the case of an immobilized sample with constant FRET efficiency
+$E$, we can write down the following probability for the emission of $N_A,
+N_D$ fluorescence photons in a duration $T$,
+\newcommand{\binomial}{\ensuremath{\mathrm{Binom}}}
+\newcommand{\pois}{\ensuremath{\mathrm{Pois}}}
+\begin{align*}
+  P(N_A, N_D, T, E, B_A, B_D, \alpha, \lambda)
+  & = \pois(N \vert \lambda, T)
+      \binomial(N_A \vert E, N)
+      \binomial(N_D \vert (1-E), N)
+\end{align*}
+where $\lambda$ is the effective emission rate.
+
+\subsection{Inference with MCMC}
+
+\section{Diffusion}
+
+To account for diffusion, we must first model the observation
+volume. We do this by considering an observation efficiency $f(\vec
+r)$, with which we postulate the total observation count rate scales,
+\[ I_A + I_D \propto f(\vec r) \]
+
+ In a confocal experiment, the observation efficiency
+$f(\vec r)$ is a convolution of the excitation intensity $E(\vec j)$
+and the collection efficiency $C(\vec r)$,
+\[ f(\vec r) = E(\vec r) C(\vec r) \]
+
+Here, we will follow the convention used in fluorescence correlation
+spectroscopy\cite{Magde1972} and assume that $f$ takes a Gaussian
+form is axial symmetry,
+\[ f(\vec r) = f_0 e^{- (r_x^2 + r_y^2) / 2 \omega_{xy}^2 - r_z^2 / 2 \omega_z^2} \]
+
+The first matter is interest is the probability of seeing 
 
 \section{Index of notation}
 
