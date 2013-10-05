@@ -234,10 +234,27 @@ in both of these channels,
 \end{align*}
 We note that by taking the ratio of these, we have a relationship between
 $\gamma$, the intensity differences, and the cross-talk parameter,
-
 \begin{equation}
   \frac{\Delta I_A}{\Delta I_D} = \frac{\gamma - \alpha}{\alpha - 1}
 \end{equation}
+
+While simple, this technique can be difficult to implement for
+solution FRET experiments. In particular, the need for accurate
+estimates of the populations' intensities is difficult to fulfill in
+the face of short bursts.
+
+\subsection{From fluorescence lifetimes}
+
+Fluorescence lifetimes provide an estimate for the FRET efficiency unaffected by
+$\gamma$. If $\gamma$ itself is needed, it can be easily derived from
+the FRET efficiency computed from the lifetime in conjunction with the
+observed proximity ratio.
+
+\subsection{Alternating Laser Excitation}
+
+As we will see later, Alternating Laser Excitation provides an elegant 
+way for determining $\gamma$ when populations with heterogeneous FRET
+efficiencies are available.
 
 \section{Alternating Laser Excitation}
 While FRET alone *, the information content in an experiment can be
