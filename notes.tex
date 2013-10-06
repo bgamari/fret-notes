@@ -565,14 +565,21 @@ where $\lambda$ is the effective emission rate.
 
 \section{Diffusion}
 
-To account for diffusion, we must first model the observation
-volume. We do this by considering an observation efficiency $f(\vec
-r)$, with which we postulate the total observation count rate scales,
-\[ I_A + I_D \propto f(\vec r) \]
-In a confocal experiment, we postulate that the observation efficiency
-$f(\vec r)$ is a convolution of the excitation intensity $E(\vec j)$
-and the collection efficiency $C(\vec r)$,
-\[ f(\vec r) = E(\vec r) ~ C(\vec r) \]
+The primary effect of diffusion on fluorescence observations is to 
+modulate excitation intensity and collection efficiency. Namely, the
+excitation rate and collection efficiency become functions of
+position,
+\begin{align*}
+  k_{exc}(\vec r) & \propto I_0 E(\vec r) \\
+  \eta\dt{i}(\lambda) & \propto C(\vec r)
+\end{align*}
+where we have assumed that both channels' collection efficiencies are
+scaled by the same factor. This assumption may not always hold but
+simplifies things immensely.
+
+We can combine these qualifies into an overall observation efficiency
+$f(\vec r)$ which scales the observed intensities,
+\[ I_A + I_D \propto f(\vec r) = I_0 E(\vec r)\, C(\vec r) \]
 
 However, as a simplifying assumption we will instead follow the
 convention used in fluorescence correlation
