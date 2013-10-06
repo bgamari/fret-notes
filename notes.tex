@@ -1,4 +1,5 @@
 \documentclass{article}
+\usepackage{commath}
 \usepackage{amsmath}
 \usepackage[color=blue!20,colorinlistoftodos]{todonotes}
 \newcommand{\refneeded}{\todo[color=green!20]{Referenced needed.}}
@@ -7,7 +8,6 @@
 \author{Ben Gamari}
 
 \newcommand{\mean}[1]{\ensuremath{\langle #1 \rangle}}
-\newcommand{\norm}[1]{\ensuremath{\lVert #1 \lVert}}
 
 \newcommand{\emm}[1]{\ensuremath{_{#1_\mathrm{em}}}}   % emission
 \newcommand{\exc}[1]{\ensuremath{^{#1_\mathrm{exc}}}}  % excitation
@@ -48,7 +48,7 @@ where,
   $k^D_\NR$        & = & rate of donor non-radiative decay \\
 \end{tabular}
 For convenience, we will use $k^D_R$ to denote the total radiative decay rate,
-\[ k^D_R = \int d\lambda k^D_{R-\lambda} \]
+\[ k^D_R = \int \dif\lambda~ k^D_{R-\lambda} \]
 
 We define $k^D_{DA}$ to be the rate of donor relaxation in the presence
 of the acceptor,
@@ -79,7 +79,7 @@ donor in the absence of the acceptor, and $n$ is the index of
 refraction of the solvent.
 
 $J$ denotes the spectral overlap integral,
-\[ J = \int f_D(\lambda) \epsilon_A(\lambda) \lambda^4 d\lambda \]
+\[ J = \int f_D(\lambda) \epsilon_A(\lambda) \lambda^4 \dif\lambda \]
 where $f_D$ is the normalized donor emission spectrum and $\epsilon_A$
 is the acceptor's molar extinction coefficient.
 
@@ -125,15 +125,15 @@ by examining $n\dt{D}_D$, the rate of photons from donor-fluoroscence
 detected by the donor detector,
 \begin{align*}
   n\dt{D}_D
-  & = \int d\lambda ~ k_{exc} ~ \eta_D(\lambda) ~ \frac{k^D_{R-\lambda}}{k_\ET + k^D_R + \sum k^D_{\NR_i}} \\
-  & = \int d\lambda ~ k_{exc} ~ \eta_D(\lambda) ~ \phi_D(\lambda) ~
+  & = \int \dif\lambda ~ k_{exc} ~ \eta_D(\lambda) ~ \frac{k^D_{R-\lambda}}{k_\ET + k^D_R + \sum k^D_{\NR_i}} \\
+  & = \int \dif\lambda ~ k_{exc} ~ \eta_D(\lambda) ~ \phi_D(\lambda) ~
          \frac{k^D_R + \sum k^D_{\NR_i}}{k_\ET + k^D_R + \sum k^D_{\NR_i}} \\
-  & = \int d\lambda ~ k_{exc} ~ \eta_D(\lambda) ~ \phi_D(\lambda) ~ (1 - E) \\
+  & = \int \dif\lambda ~ k_{exc} ~ \eta_D(\lambda) ~ \phi_D(\lambda) ~ (1 - E) \\
   & = k_{exc} ~ \xi\dt{D}_D ~ (1 - E)
 \end{align*}
 Where we use $\xi_i\dt{j}$ to denote the probability that a photon
 emitted by fluorophore $i$ is registered by detector $j$,
-\[ \xi_i\dt{j} = \int d\lambda ~ \phi_i(\lambda) ~ \eta_j(\lambda) \]
+\[ \xi_i\dt{j} = \int \dif\lambda ~ \phi_i(\lambda) ~ \eta_j(\lambda) \]
 %
 The remaining rates follow similarly,
 \begin{align*}
@@ -454,11 +454,11 @@ we will need tools of a more quantitative nature.
 We will begin by examining the statistics of photons resulting from a
 hypothetical single-molecule experiment. Recall that under first-order
 kinetics, the evolution of the system satisfies,
-\[ \frac{d}{dt} \mathbf{G}(t) = \mathbf{K} \mathbf{G}(t) \]
+\[ \od{}{t} \mathbf{G}(t) = \mathbf{K} \mathbf{G}(t) \]
 where $\mathbf{K}$ is the transition matrix, where element $k_{ij}$ is
 the rate of transition from state $j \rightarrow i$. We note that we
 can solve this equation by a Green function expansion with the
-operator $\mathbf{L} = \frac{d}{dt} - \mathbf{K}$. Recall that the
+operator $\mathbf{L} = \od{}{t} - \mathbf{K}$. Recall that the
 Green function plays the role of the propagator: $G_{ji}(T)$ is the
 probability that a system in state $i$ at $t=0$ will evolve to state
 $j$ at time $T$.
@@ -467,12 +467,12 @@ As a matter of practicality, our work will be much simpler in the
 Laplace domain. Recall that this entails,
 \begin{align*}
 f(t) & \rightarrow \hat f(s) \\
-\frac{d}{dt} f(t) & \rightarrow (s~ \hat f(s) - f(0)) \\
+\od{}{t} f(t) & \rightarrow (s\, \hat f(s) - f(0)) \\
 \end{align*}
 Therefore, we have,
-\[ s~\mathbf{\hat G}(s) - \mathbf{G}(0) = \mathbf{K} \mathbf{\hat G}(s) \]
+\[ s\, \mathbf{\hat G}(s) - \mathbf{G}(0) = \mathbf{K} \mathbf{\hat G}(s) \]
 or, after rearranging,
-\[ \mathbf{\hat G}(s) = (s \mathbf{1} - \mathbf{K})^{-1} \]
+\[ \mathbf{\hat G}(s) = (s\, \mathbf{1} - \mathbf{K})^{-1} \]
 
 With this result in hand, we set out to answer a more challenging
 question: given a system in state $\alpha$ at $t=0$ and $\beta$ at
@@ -496,7 +496,7 @@ k_{ji}$.
 We can then derive a propagator for these pieces
 individually, exploiting the linearity of first-order kinetics.
 This results in the propagator,
-\[ \mathbf{\hat G}^*(\lambda, s) = \left(s \mathbf{1} - (\mathbf{K} - \mathbf{V}) - \lambda \mathbf{V} \right)^{-1} \]
+\[ \mathbf{\hat G}^*(\lambda, s) = \left(s\, \mathbf{1} - (\mathbf{K} - \mathbf{V}) - \lambda \mathbf{V} \right)^{-1} \]
 
 Moreover, we note that by making $\lambda$ vanish, we preclude the $i
 \rightarrow j$ transition entirely. In light of this, one would suspect that we should
@@ -519,7 +519,7 @@ This gives our final result,
 for $N \ge 1$ and $\hat P_{\beta\alpha}(N,s) = \hat
 G'_{\beta\alpha}(s)$ for $N=0$. Furthermore, it can be shown that $\mathrm{\hat G^*}$ is the generating function of this count distribution $\hat P(N,s)$. That is the $n$th moment of this
 distribution is given by,
-\[ \frac{d^n}{d^n \lambda} \mathrm{\hat G^*}(s, \lambda) \]
+\[ \od[n]{}{\lambda} \mathrm{\hat G^*}(s, \lambda) \]
 evaluated at $\lambda = 0$.
 
 Of course, this result is still given in the Laplace domain. In most
@@ -587,14 +587,14 @@ A useful way to think about this is to imagine that the particle is
 diffusing between shells of area $2\pi r dz$, each with its own value
 of $f$. We can examine the surface area of the shell with efficiency $f$,
 \begin{align*}
-  A(f) & = \int d\vec{r}~ \delta(f - f(\vec r)) \\
+  A(f) & = \int \dif\vec{r}~ \delta(f - f(\vec r)) \\
   & = -2\pi^2 w_{xy} w_z \log\frac{f}{f_0}
 \end{align*}
 
 The first result of interest is the probability of seeing a mean
 observation efficiency $\bar f$ over a time period of $T$,
 \begin{align*}
-  P(\bar f, T) & = \int D\vec{r}~ P(\vec{r}) \int_0^T dt~ f(\vec{r}(t))
+  P(\bar f \vert T) & = \int \Dif\vec{r}~ P(\vec{r}) \int_0^T \dif t~ f(\vec{r}(t))
 \end{align*}
 where the first integral is a functional integral over Brownian paths
 $\vec r(t)$.
@@ -604,7 +604,7 @@ with diffusivity $D$ being displaced by $\Delta \vec{r}$ in a time
 $\Delta t$ is normally distributed,
 
 \[
-  P\left( \vec{r}(\Delta t) = \vec{r}(0) + \Delta \vec{r} \right) =
+  P\big( \vec{r}(\Delta t) = \vec{r}(0) + \Delta \vec{r} \big) =
   \frac{1}{\sqrt{2\pi D \Delta t}}
   e^{\norm{\Delta \vec{r}}^2 / 2 D \Delta t}
 \] 
