@@ -557,7 +557,8 @@ fluorescence photons in a duration $T$,
 \newcommand{\pois}{\ensuremath{\mathrm{Pois}}}
 \begin{align*}
   P(N_A, N_D \vert T, \bar E, \lambda)
-  & = \pois(N \vert \lambda, T)~
+  & = \sum_{N=0}^\infty
+      \pois(N \vert \lambda, T)~
       \binomial(N_A \vert \bar E, N)~
       \binomial(N_D \vert (1-\bar E), N)
 \end{align*}
