@@ -542,25 +542,37 @@ non-trivial stoichastic process. The natural way to treat inference of
 physical parameters from these observations is via generative
 probabilistic modelling. That is, we seek to write down a model of the
 form,
-\[ P(\vec X, \vec\theta) \]
+\[ P(\vec X \vert \vec\theta) \]
 giving the probability of observations $\vec X$ (say, photon arrival times)
 under a physical model with parameters $\vec\theta$ (say, $\gamma$ and $\mean{E}$)
 
 \subsection{Poisson processes}
 \subsection{Bayes theorem}
 \subsection{A simple model of FRET}
-In the case of an immobilized sample with constant FRET efficiency
-$E$, we can write down the following probability for the emission of $N_A,
-N_D$ fluorescence photons in a duration $T$,
+In the case of an immobilized sample with no instrument losses
+($\xi_{ij} = 1$) with constant FRET efficiency $\bar E$, we can write
+down the following probability for the emission of $N_A, N_D$
+fluorescence photons in a duration $T$,
 \newcommand{\binomial}{\ensuremath{\mathrm{Binom}}}
 \newcommand{\pois}{\ensuremath{\mathrm{Pois}}}
 \begin{align*}
-  P(N_A, N_D, T, E, B_A, B_D, \alpha, \lambda)
-  & = \pois(N \vert \lambda, T)
-      \binomial(N_A \vert E, N)
-      \binomial(N_D \vert (1-E), N)
+  P(N_A, N_D \vert T, \bar E, \lambda)
+  & = \pois(N \vert \lambda, T)~
+      \binomial(N_A \vert \bar E, N)~
+      \binomial(N_D \vert (1-\bar E), N)
 \end{align*}
-where $\lambda$ is the effective emission rate.
+where the effective emission rate $\lambda = k_{exc} (\bar E \phi_A +
+(1-\bar E) \phi_D)$.
+
+To this model, we can add a Poissonian background contribution,
+\begin{align*}
+  P(N_A, N_D \vert T, \bar E, \vec B, \lambda)
+  & = \sum_{b_A=0}^{N_A} \sum_{b_D=0}^{N_D}
+      P(N_A-b_A, N_D-b_D \vert T, \bar E, \lambda)~
+      \pois(b_A \vert T, B_A)~
+      \pois(b_D \vert T, B_D)
+\end{align*}
+where $\vec B$ denotes the background rates $(B_A, B_D)$.
 
 \subsection{Inference with MCMC}
 
